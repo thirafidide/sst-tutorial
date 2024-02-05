@@ -13,11 +13,14 @@ export const main = handler(async (event) => {
 		data = JSON.parse(event.body);
 	}
 
+	const userId =
+		event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+
 	const params = {
 		TableName: Table.Notes.tableName,
 		Item: {
 			// The attributes of the item to be created
-			userId: "123", // The id of the author
+			userId,
 			noteId: uuid.v1(), // A unique uuid
 			content: data.content, // Parsed from request body
 			attachment: data.attachment, // Parsed from request body

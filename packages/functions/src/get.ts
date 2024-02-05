@@ -3,10 +3,13 @@ import handler from "@sst-tutorial/core/handler";
 import dynamoDb from "@sst-tutorial/core/dynamodb";
 
 export const main = handler(async (event) => {
+	const userId =
+		event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+
 	const params = {
 		TableName: Table.Notes.tableName,
 		Key: {
-			userId: "123",
+			userId,
 			noteId: event?.pathParameters?.id,
 		},
 	};

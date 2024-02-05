@@ -3,10 +3,13 @@ import handler from "@sst-tutorial/core/handler";
 import { Table } from "sst/node/table";
 
 export const main = handler(async (event) => {
+	const userId =
+		event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+
 	await dynamoDb.delete({
 		TableName: Table.Notes.tableName,
 		Key: {
-			userId: "123",
+			userId,
 			noteId: event?.pathParameters?.id,
 		},
 	});
