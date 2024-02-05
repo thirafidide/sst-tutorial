@@ -19,6 +19,9 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
+      vitest:
+        specifier: ^1.2.2
+        version: 1.2.2(@types/node@20.11.15)
 
   packages/core:
     dependencies:
