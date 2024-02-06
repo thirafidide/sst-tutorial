@@ -8,8 +8,11 @@ import Routes from "./Routes";
 import { AppContext, AppContextType } from "./lib/contextLib";
 
 import "./App.css";
+import { useNavigate } from "react-router-dom";
+import { onError } from "./lib/errorLib";
 
 function App() {
+	const nav = useNavigate();
 	const [isAuthenticated, userHasAuthenticated] = useState(false);
 	const [isAuthenticating, setIsAuthenticating] = useState(true);
 
@@ -23,7 +26,7 @@ function App() {
 			userHasAuthenticated(true);
 		} catch (e) {
 			if (e !== "No current user") {
-				alert(e);
+				onError(e);
 			}
 		}
 
@@ -33,6 +36,7 @@ function App() {
 	async function handleLogout() {
 		await Auth.signOut();
 		userHasAuthenticated(false);
+		nav("/login");
 	}
 
 	return (
